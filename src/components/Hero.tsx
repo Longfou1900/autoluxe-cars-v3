@@ -35,9 +35,15 @@ export default function Hero() {
       </div>
 
       <div className="hero-copy">
+<<<<<<< HEAD
         <p className="eyebrow">Company cars · 2026 collection Khmer</p>
         <h1>
           Arrive <span className="gradient-text">Unforgettably 2026.</span>
+=======
+        <p className="eyebrow">Company cars · 2030 collection Khmer</p>
+        <h1>
+          Arrive <span className="gradient-text">Unforgettably 2030.</span>
+>>>>>>> ec82003 (test aut-deploy)
         </h1>
         <p className="lead">
           Hand-picked premium company cars with full service history, fleet pricing and
