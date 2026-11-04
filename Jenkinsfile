@@ -29,6 +29,29 @@ pipeline {
   }
 
   stages {
+
+    stage('Clone Code') {
+            steps {
+                git 'https://github.com/keoKAY/reactjs-devop8-template.git'
+            }
+        }
+    stage('Build Image') {
+            steps {
+                sh """
+                docker build -t jenkins/jenkins:lts-jdk25 -f prod.Dockerfile . 
+                """
+            }
+    }
+
+    stage('Deploy') {
+            steps {
+               sh """
+                docker rm -f jenkins || true
+                docker run -dp 3005:80 --name jenkins jenkins/jenkins:lts-jdk25
+               """
+            }
+    }
+
     stage('Install') {
       steps {
         sh 'node --version && npm --version'
