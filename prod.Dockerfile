@@ -1,19 +1,30 @@
-# stage 1 
+# Stage 1: Build React application
 FROM node:alpine AS builder
+
 WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
-RUN npm i
 
-# COPY  . . 
-COPY src ./src
-COPY public ./public 
-RUN npm run build 
+# Install dependencies
+RUN npm ci
 
-# Stage:2 production 
-FROM nginx:alpine 
-#FROM nginx:1.19
+# Copy the complete Vite project
+COPY . .
+
+# Build production application
+RUN npm run build
+
+
+# Stage 2: Production Nginx server
+FROM nginx:alpine
+
+# Configure Nginx
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
-EXPOSE 80 
-# nginx as background and foreground 
-ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+
+# Copy Vite production build
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
