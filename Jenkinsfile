@@ -32,7 +32,7 @@ pipeline {
 
     stage('Clone Code') {
             steps {
-                git 'https://github.com/keoKAY/reactjs-devop8-template.git'
+                git 'https://github.com/Longfou1900/autoluxe-cars-v3.git'
             }
         }
     stage('Build Image') {
